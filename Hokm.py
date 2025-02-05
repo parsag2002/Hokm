@@ -262,11 +262,11 @@ while winsA < 7 and winsB < 7   :
     handWonB = 0
     deckCopy = deck[:]
     ShuffleAndSpread()
+    ShowHand(userHand[:5])
     userHand = SortHand(userHand)
     player2Hand = SortHand(player2Hand)
     player3Hand = SortHand(player3Hand)
     player4Hand = SortHand(player4Hand)
-    ShowHand(userHand[:5])
     trump = WhatIsTrump(trumper)
 
     while handWonA < 7 and handWonB < 7:
