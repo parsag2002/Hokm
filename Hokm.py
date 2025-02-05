@@ -156,14 +156,55 @@ def AskWhatToPlay(userHand, groundCards):
             print('error, this is not in your hand, retry.')
 
 def WhatCardToPlay(playerHand, groundCards, player_name):    
-    pickedCard = random.choice(playerHand)
-    groundCards.append(pickedCard)
-    playerHand.remove(pickedCard)
-    if player_name == 'player3':
-        print(f'{player_name} dropped: {pickedCard} (your teammate)')
-    else:
-        print(f'{player_name} dropped: {pickedCard}')
-    return pickedCard
+    while True:
+        pickedCard = random.choice(playerHand)
+
+        # if it's not the first card witch is played(more checking)
+        if len(groundCards) != 0:
+            # check if it's the same suit with the first card played if yes(ok) if trump (more checking) if etc(more checking)
+            if pickedCard[0] == groundCards[0][0]:
+                groundCards.append(pickedCard)
+                playerHand.remove(pickedCard)
+                if player_name == 'player3':
+                    print(f'{player_name} dropped: {pickedCard} (your teammate)')
+                else:
+                    print(f'{player_name} dropped: {pickedCard}')
+                return pickedCard
+                break
+            elif pickedCard[0] == trump:
+                # (more checking)
+                for card in playerHand:
+                    if card[0] == groundCards[0][0]:
+                        break
+                else:
+                    groundCards.append(pickedCard)
+                    playerHand.remove(pickedCard)
+                    if player_name == 'player3':
+                        print(f'{player_name} dropped: {pickedCard} (your teammate)')
+                    else:
+                        print(f'{player_name} dropped: {pickedCard}')
+                    return pickedCard
+                    break
+            else:
+                # (more checking)
+                for card in playerHand:
+                    if card[0] == groundCards[0][0]:
+                        break
+                else:
+                    groundCards.append(pickedCard)
+                    playerHand.remove(pickedCard)
+                    return pickedCard
+                    break
+        # if it's the first card witch is played(ok)
+        else:
+            groundCards.append(pickedCard)
+            playerHand.remove(pickedCard)
+            if player_name == 'player3':
+                print(f'{player_name} dropped: {pickedCard} (your teammate)')
+            else:
+                print(f'{player_name} dropped: {pickedCard}')
+            return pickedCard
+            break
 
 def WhoWins(t, groundCards, trump):
     firstCard = groundCards[0]
@@ -210,7 +251,7 @@ def WhoWins(t, groundCards, trump):
     else:
         CheckNotTrump()
     
-    print("Ground cards:", groundCards)
+    print("\nGround cards:", groundCards)
     print("Winner card:", winnerCard)
 
     # determine the winnerCard was from witch player
@@ -262,6 +303,7 @@ while winsA < 7 and winsB < 7   :
     handWonB = 0
     deckCopy = deck[:]
     ShuffleAndSpread()
+    print('\nYour first 5 cards are:')
     ShowHand(userHand[:5])
     userHand = SortHand(userHand)
     player2Hand = SortHand(player2Hand)
